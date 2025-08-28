@@ -31,6 +31,7 @@ router.get("/failed", (req,res) => {
 // When logout, redirect to client
 router.get('/logout', (req, res) => {
     req.logout(() => {
+        console.log("logging user out");
         res.redirect(process.env.CLIENT_URL);
     });
 });
@@ -42,7 +43,7 @@ router.get('/google', passport.authenticate('google', {
 
 // callback route for google to redirect to
 router.get('/google/callback', passport.authenticate('google', {
-    successRedirect: process.env.CLIENT_URL, // Redirect to react app
+    successRedirect: process.env.HOME_URL, // Redirect to react app
     failureRedirect: '/login/failed'
 }));
 

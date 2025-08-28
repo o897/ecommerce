@@ -1,0 +1,21 @@
+/*  
+Resets/normalizes styles (e.g., remove default browser margins, set box-sizing: border-box).
+
+Define global typography (fonts, heading sizes, colors).
+
+Layout rules that affect the entire page (e.g., body, html, #root).
+
+Utility classes you might reuse everywhere.
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    font-size: 1.6rem;
+    letter-spacing: .00625em;
+    line-height: 1.875rem;
+}
