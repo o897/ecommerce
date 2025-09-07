@@ -4,11 +4,11 @@ const web = require("./routes/web");
 const cors = require("cors");
 const session = require('express-session');
 const passport = require('passport');
-const authRoutes = require('./routes/authRoutes');
-const passportSetup = require('./config/passport'); 
+require('./config/passport'); 
 
 
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 app.use(session({
     secret: process.env.COOKIE_KEY,
     resave: false,
@@ -21,6 +21,7 @@ app.use(session({
 // Initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 // Set up middleware
 app.use(cors({

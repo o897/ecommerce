@@ -1,5 +1,8 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const LocalStrategy = require('passport-local').Strategy; // 1. Import LocalStrategy
+const bcrypt = require('bcryptjs'); // Import bcrypt
+
 const User = require("../model/userModel");
 require('dotenv').config();
 
@@ -38,8 +41,8 @@ passport.use(
                         email: profile.emails[0].value
                     }).save().then((newUser) => {
                         console.log(`new user created : ${newUser}`);
-                        done(null,newUser);
-                        
+                        done(null, newUser);
+
                     });
                 }
             })
@@ -47,4 +50,34 @@ passport.use(
         }
     )
 );
+
+passport.use(
+    new LocalStrategy({
+        usernameField: 'email'
+    },
+        (email, password, done) => {
+            User.findOne({ email: email })
+                .then(user => {
+                    if (!user) {
+                        return done(null, false, { message: 'Incorrect email.' });
+                    }
+
+
+                    // if verifyPassword is synchronous
+                    bcrypt.compare(password, user.password, (err,isMatch) => {
+                        if (err) throw err;
+
+                        if (isMatch) {
+                            console.log("user logged in.");
+                            return done(null,user);
+                            
+                        } else {
+                            return done(null, false, { message : "Password not match"})
+                        }
+                    });
+                })
+                .catch(err => done(err))
+            })
+);
+
 

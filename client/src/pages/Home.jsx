@@ -1,13 +1,14 @@
 // src/components/Dashboard.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Navbar from '../components/Navbar'
 
 const Home = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // when component mounts if fetches user data
+        // when component mounts userEffects gets triggered fetches user data
         const fetchUser = async () => {
             try {
                 const { data } = await axios.get('http://localhost:3000/auth/success', {
@@ -37,6 +38,7 @@ const Home = () => {
     if (!user) {
         return (
           <div>
+            <Navbar/>
             <h1>Welcome!</h1>
             <p>You are not logged in. Please <a href="/login">login</a>.</p>
           </div>

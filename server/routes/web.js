@@ -10,7 +10,7 @@ router.use('/auth',authRoutes);
 
 // registering new user using email and password
 router.post("/register",registerUser)
-router.post("/login",loginUser)
+// router.post("/login",loginUser)
 router.get("/", (req,res) => {
     res.send("Welcome home")
 })
